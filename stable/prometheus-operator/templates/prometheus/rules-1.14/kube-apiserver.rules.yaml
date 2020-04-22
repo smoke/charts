@@ -302,10 +302,10 @@ spec:
             )
           ) +
           # errors
-          sum(code:apiserver_request_total:increase30d{code=~"5.."})
+          sum(code:apiserver_request_total:increase7d{code=~"5.."})
         )
         /
-        sum(code:apiserver_request_total:increase30d)
+        sum(code:apiserver_request_total:increase7d)
       labels:
         verb: all
       record: apiserver_request:availability30d
@@ -321,10 +321,10 @@ spec:
           )
           +
           # errors
-          sum(code:apiserver_request_total:increase30d{verb="read",code=~"5.."})
+          sum(code:apiserver_request_total:increase7d{verb="read",code=~"5.."})
         )
         /
-        sum(code:apiserver_request_total:increase30d{verb="read"})
+        sum(code:apiserver_request_total:increase7d{verb="read"})
       labels:
         verb: read
       record: apiserver_request:availability30d
@@ -338,23 +338,23 @@ spec:
           )
           +
           # errors
-          sum(code:apiserver_request_total:increase30d{verb="write",code=~"5.."})
+          sum(code:apiserver_request_total:increase7d{verb="write",code=~"5.."})
         )
         /
-        sum(code:apiserver_request_total:increase30d{verb="write"})
+        sum(code:apiserver_request_total:increase7d{verb="write"})
       labels:
         verb: write
       record: apiserver_request:availability30d
-    - expr: sum by (code, verb) (increase(apiserver_request_total{job="apiserver"}[30d]))
-      record: code_verb:apiserver_request_total:increase30d
-    - expr: sum by (code) (code_verb:apiserver_request_total:increase30d{verb=~"LIST|GET"})
+    - expr: sum by (code, verb) (increase(apiserver_request_total{job="apiserver"}[7d]))
+      record: code_verb:apiserver_request_total:increase7d
+    - expr: sum by (code) (code_verb:apiserver_request_total:increase7d{verb=~"LIST|GET"})
       labels:
         verb: read
-      record: code:apiserver_request_total:increase30d
-    - expr: sum by (code) (code_verb:apiserver_request_total:increase30d{verb=~"POST|PUT|PATCH|DELETE"})
+      record: code:apiserver_request_total:increase7d
+    - expr: sum by (code) (code_verb:apiserver_request_total:increase7d{verb=~"POST|PUT|PATCH|DELETE"})
       labels:
         verb: write
-      record: code:apiserver_request_total:increase30d
+      record: code:apiserver_request_total:increase7d
     - expr: sum by (code,resource) (rate(apiserver_request_total{job="apiserver",verb=~"LIST|GET"}[5m]))
       labels:
         verb: read
